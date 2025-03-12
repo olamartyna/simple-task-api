@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.env
+simple-task-venv/
+
+# Other files
+STEPS.md
