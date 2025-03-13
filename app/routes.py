@@ -15,8 +15,31 @@ def create_task():
 @app.route('/tasks', methods=['GET'])
 def get_tasks():
     tasks = Task.query.all()
-    task_list = [{"id": task.id, "title": task.title, "status": task.status} for task in tasks]
+    task_list = [{"id": task.id, "title": task.title, "description": task.description ,"status": task.status} for task in tasks]
     return jsonify(task_list), 200
+
+# Update Task
+@app.route('/tasks/<int:task_id>', methods=['PUT'])
+def update_task(task_id):
+    task = Task.query.get_or_404(task_id)  # Find the task or return 404
+    data = request.get_json()  # Get JSON data from request
+
+    # Update fields if they exist in the request
+    if 'title' in data:
+        task.title = data['title']
+    if 'description' in data:
+        task.description = data['description']
+    if 'status' in data:  # Fix: Changed from 'completed' to 'status'
+        task.status = data['status']
+
+    db.session.commit()  # Save changes to database
+    #return jsonify({'message': 'Task updated'})
+    return jsonify({
+        'id': task.id,
+        'title': task.title,
+        'description': task.description,
+        'status': task.status  # Fix: Changed from 'completed' to 'status'
+    }), 200
 
 # Delete Task
 @app.route('/tasks/<int:task_id>', methods=['DELETE'])
