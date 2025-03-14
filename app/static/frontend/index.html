@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Task Management</title>
+    <link rel="stylesheet" href="/static/frontend/styles.css">
+</head>
+
+<body>
+    <h1>Task Manager</h1>
+    <hr />
+
+    <h2>Add a new task</h2>
+    <form id="task-form">
+        <input type="text" id="task-title" placeholder="Task Title" required>
+        <input type="text" id="task-desc" placeholder="Task Description">
+        <button type="submit">Add Task</button>
+    </form>
+
+    <hr />
+    <h2>My current tasks</h2>
+    <ul id="task-list"></ul>
+
+    <script src="/static/frontend/main.js" defer></script>
+</body>
+</html>

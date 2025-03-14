@@ -1,6 +1,17 @@
-from flask import request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
+import os
 from app import app, db
 from app.models import Task
+
+# Serve frontend (index.html)
+@app.route('/')
+def serve_frontend():
+    return send_from_directory(os.path.join(app.static_folder, 'frontend'), 'index.html')
+
+# Serve static files correctly (CSS, JS)
+@app.route('/static/frontend/<path:filename>')
+def serve_static_files(filename):
+    return send_from_directory(os.path.join(app.static_folder, 'frontend'), filename)
 
 # Create Task
 @app.route('/tasks', methods=['POST'])
@@ -78,3 +89,13 @@ def delete_task(task_id):
     db.session.commit()
 
     return jsonify({"message": f"Task '{task.title}' (ID: {task.id}) deleted successfully!"}), 200
+
+
+# Change tasks status
+@app.route('/tasks/<int:task_id>/toggle', methods=['PATCH'])
+def toggle_task_status(task_id):
+    task = Task.query.get_or_404(task_id)    
+    task.status = "complete" if task.status == "pending" else "pending"
+    db.session.commit()
+
+    return jsonify({"message": "Status updated!", "status": task.status}), 200
