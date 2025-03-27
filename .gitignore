@@ -10,7 +10,6 @@ simple-task-venv/
 
 # Ignore SQLite database and instance folder
 instance/
-*.database
 
 # Other files
 STEPS.md
