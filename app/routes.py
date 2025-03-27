@@ -91,7 +91,7 @@ def delete_task(task_id):
     return jsonify({"message": f"Task '{task.title}' (ID: {task.id}) deleted successfully!"}), 200
 
 
-# Change tasks status
+# Change Task's status
 @app.route('/tasks/<int:task_id>/toggle', methods=['PATCH'])
 def toggle_task_status(task_id):
     task = Task.query.get_or_404(task_id)    

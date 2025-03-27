@@ -1,7 +1,16 @@
+# Ignore Python cache
 __pycache__/
 *.pyc
+
+# Ignore environment variables
 .env
+
+# Ignore virtual environmnet 
 simple-task-venv/
+
+# Ignore SQLite database and instance folder
+instance/
+*.database
 
 # Other files
 STEPS.md
